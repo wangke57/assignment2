@@ -1,0 +1,25 @@
+frequent_words <- function(text, k) {   # create a new function frequent_words (ref.https://www.rdocumentation.org/packages/base/versions/3.6.0/topics/function)
+  frequent_patterns <- {} # define frequent_patterns as an empty list
+  count <- {} # define count as an empty list
+  for (i in 0:(nchar(text) - k)) { # a for-loop for i from 0 to character length (text-k)，{ opens a new statement
+    pattern <- substr(text, i + 1, i + k) # define pattern as a substring (text, start, stop) (ref.https://www.rdocumentation.org/packages/base/versions/3.6.0/topics/substr)
+    count[i + 1] <- pattern_count(text, pattern) # add pattern_count(text,pattern) to i+1
+  } # } closes the statement
+  max_count <- max(count) # define max_count as the maximum of count
+  for (i in 0:(nchar(text) - k)) { # a for-loop for i from 0 to character lenght "text-k"
+    if (count[i + 1] == max_count) # if the i+1 matches the max_count
+      frequent_patterns <- append(frequent_patterns, substr(text, i + 1, i + k)) # define frequent_patterns as a merged vector(vector, value) (ref.https://www.rdocumentation.org/packages/base/versions/3.6.0/topics/append)
+  } # close of a statement
+  return(unique(frequent_patterns)) # erase the duplicates in frequent_patterns and return to the result
+  } # close of a statement
+
+
+pattern_count <- function(text, pattern) { # create a new function pattern_count
+  count <- 0 # define count as 0
+  pattern_length <- nchar(pattern) # define pattern_lenght as the character lenght of pattern
+  for (i in 0:(nchar(text) - pattern_length)) { # a for-loop for i from 0 to character length (text-pattern_lenght)
+    if (substr(rep(text), i + 1, i + pattern_length) == pattern) # if substring(text,start,stop) matches pattern (ref.https://www.rdocumentation.org/packages/base/versions/3.6.0/topics/rep)
+      count <- count + 1 # rewrite count as count+1
+  } # close of a statement
+  return(count) # return to the result as count
+} # close of a statement
